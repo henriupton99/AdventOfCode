@@ -1,5 +1,5 @@
 # session cache for collect of input
-.session_cache.lock
+.aoc_session
 .python-version
 
 # real_input.txt (must not be shared)

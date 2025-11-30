@@ -1,20 +1,12 @@
-[tool.poetry]
+[project]
 name = "adventofcode"
 version = "0.1.0"
-description = "Poetry env manager for Advent of Code"
-authors = ["henriupton99 <henriupton99@gmail.com>"]
+description = "virtual env for advent of code"
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.10"
-bs4 = "^0.0.2"
-requests = "^2.32.3"
-pytest = "^8.3.4"
-tqdm = "^4.67.1"
-numpy = "^2.2.0"
-networkx = "^3.4.2"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires-python = ">=3.12"
+dependencies = [
+    "bs4>=0.0.2",
+    "pyperclip>=1.11.0",
+    "requests>=2.32.5",
+    "rich>=14.2.0",
+]

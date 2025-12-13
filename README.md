@@ -76,6 +76,7 @@ Result copied in clipboard ✔
 - **set** object : useful to deal with *intersections*, *unions*, *difference*
 - **tuple** : handle coordinates
 - **iterables** : *enumerate*, *zip*
+- **eval** : evaluate operations written as strings *eval(1+2)*
 
 ### 2.2. Python Packages 
 - **[copy](https://docs.python.org/fr/3/library/copy.html)** : module *deepcopy* that allows to make a copy of an element completely detached from the original one (in terms of operations).

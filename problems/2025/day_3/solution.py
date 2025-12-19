@@ -1,6 +1,12 @@
 import argparse
 import re
 
+def joltage(n: list[int], left: int) -> int:
+    if left == 0:
+        return max(n)
+    d = max(n[:-left])
+    return d * 10**left + joltage(n[n.index(d) + 1 :], left - 1)
+
 class Solution:
   filename_real_input = 'real_input.txt'
   filename_test_input = 'test_input.txt'
@@ -15,17 +21,10 @@ class Solution:
     self.blocks = [list(map(int, list(line))) for line in self.file.splitlines()]
     
   def part1(self):
-    max_candidates = []
-    for block in self.blocks:
-      candidates = []
-      for i, e in enumerate(block[:-1]):
-        max_next = max(block[i+1:])
-        candidates.append(int(str(f"{e}{max_next}")))
-      max_candidates.append(max(candidates))
-    return sum(max_candidates)
+    return sum(joltage(row, 1) for row in self.blocks)
 
   def part2(self):
-    pass
+    return sum(joltage(row, 11) for row in self.blocks)
   
 if __name__ == '__main__':
   parser = argparse.ArgumentParser('Solution file')

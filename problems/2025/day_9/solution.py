@@ -1,5 +1,6 @@
 import argparse
 import re
+from itertools import combinations, pairwise
 
 class Solution:
   filename_real_input = 'real_input.txt'
@@ -9,23 +10,27 @@ class Solution:
   def get_nums(string: str) -> list[int]:
     return list(map(int, re.findall(r'[-+]?\d+', string)))
   
+  @staticmethod
+  def compute_area(x1: int, y1: int, x2: int, y2: int):
+    return (abs(x1-x2)+1) * (abs(y1-y2)+1)
+  
   def __init__(self, test=False):
     self.filename = self.filename_test_input if test else self.filename_real_input
-    self.file = open(self.filename,'r').read()
-    self.coords = list(map(self.get_nums, self.file.splitlines()))
-    self.areas = []
-    for i, p1 in enumerate(self.coords):
-      for j, p2 in enumerate(self.coords):
-        if i>j:
-          area = (abs(p1[0]-p2[0]) +1)*(abs(p1[1]-p2[1])+1)
-          self.areas.append((area, i, j))  
-    self.areas.sort()
+    self.red = list(map(eval, open(self.filename)))
+    self.pairs, self.lines = [sorted(((min(a,c), min(b,d), max(a,c), max(b,d))
+      for (a,b),(c,d) in P), key=lambda p: self.compute_area(*p), reverse=True) 
+      for P in (combinations(self.red, r=2), pairwise(self.red + [self.red[0]]))]
     
   def part1(self):
-    return self.areas[-1][0]
+    return self.compute_area(*self.pairs[0])
   
   def part2(self):
-    pass
+    for x1,y1,x2,y2 in self.pairs:
+      for p,q,r,s in self.lines:
+          if p<x2 and q<y2 and r>x1 and s>y1: 
+            break
+      else: 
+        return self.compute_area(x1,y1,x2,y2)
   
 if __name__ == '__main__':
   parser = argparse.ArgumentParser('Solution file')
